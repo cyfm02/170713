@@ -1,0 +1,21 @@
+物件導向程式設計：為何說composition優於inheritance？
+https://tw.twincl.com/@arthurtw/*662v
+
+
+要如何找出物件呢？ 物件導向初學者應該要知道的事情(一)
+http://milikao.pixnet.net/blog/post/543590
+
+為什麼我找出來的物件都是UI物件？ 物件導向初學者應該要知道的事情(二)
+http://milikao.pixnet.net/blog/post/543596
+
+到底誰該去繼承誰？ 物件導向初學者應該要知道的事情(三)
+http://milikao.pixnet.net/blog/post/543592
+
+繼承是父子關係？才怪！ 物件導向初學者應該要知道的事情(四)
+http://milikao.pixnet.net/blog/post/543716
+
+
+來篇讓人反思的文章: 
+我不喜歡物件導向
+http://blog.udn.com/yccsonar/7085309
+

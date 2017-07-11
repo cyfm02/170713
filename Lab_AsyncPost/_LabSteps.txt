@@ -1,0 +1,34 @@
+示範與練習流程...
+
+
+1.  開啟  test_POST_To.php　並且瀏覽程式內容。
+
+
+2.  開啟  test_POST_From.php　並且瀏覽程式內容。
+
+
+3.  執行  test_POST_From.php。
+
+
+4.  課堂說明與討論，POST 改成非同步運作，有何優缺點? 
+    分別應用於哪些使用情境。
+
+
+5.  開啟  Lab_Async.php　並且瀏覽程式內容。
+
+
+6.  開啟 Lab_AsyncDo.php　並且瀏覽程式內容。
+    <Note> 目前採用 Step-by-step 的作法
+
+
+7.  執行 Lab_Async.php，觀看 data.txt 的內容，
+    各項 Request 應該會依序從一到五。
+
+
+8.  手動刪除 data.txt。
+
+
+9.  修改  Lab_Async.php，改用非同步(Async)的方式進行, 
+    觀看 data.txt 的內容，
+    各項 Request 不一定(通常不會)依序從一到五。
+

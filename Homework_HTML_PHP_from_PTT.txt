@@ -1,0 +1,477 @@
+請在課餘閱讀下列 PTT 文章:
+
+
+ 作者  PTTLSboy (阿銫)                                              看板  PHP
+ 標題  [請益]該如何避免HTML摻雜PHP寫法
+ 時間  Mon Oct  1 20:56:08 2012
+───────────────────────────────────────
+
+
+<select>
+        <? for($i=0;$i<$a;$i++){ ?>
+                <option> (略) </option>
+        <? } ?>
+</select>
+
+要如何避免以上這種 HTML+PHP 混在一起的寫法呢???
+
+因為有不得不用PHP跑迴圈+HTML或JAVASCRIPT的需求
+
+感謝!!
+
+--
+※ 發信站: 批踢踢實業坊(ptt.cc)
+◆ From: 123.0.232.61
+推 LaPass:找一下codeIgniter這套框架，聽說很好用                    10/01 20:57
+剛好有去聽過一次推廣的課,雖然沒有在用,不過知道它是個好東西:)
+→ alpe:請用樣板引擎 or Javascript                                 10/01 21:08
+推 gpmm:我比較推 twig  XD                                          10/01 21:09
+→ superpai:這種混法是沒有關係的..                                 10/01 21:26
+推 vivi50218:這樣還好吧 很常見... select要抓值 不用PHP要用啥..     10/01 21:40
+→ knives:這種寫法，就算你用樣板引擎也免不了要用到這樣的迴圈寫法   10/01 21:59
+推 appleboy46:其實只要是 render(template, data) 這種形式的都差不   10/01 23:53
+→ appleboy46:多                                                   10/01 23:54
+推 Fantasywind:我比較想知道要避免的原因                            10/02 00:20
+推 LaPass:因為混在一起的程式碼，維護起來是很恐怖的事情....         10/02 00:23
+→ Fantasywind:tab \n 有用好應該還可以接受啦XD                     10/02 01:11
+→ Fantasywind:不然就只能在其他地方算好直接丟字串進去 但這樣我     10/02 01:12
+→ Fantasywind:認為更難維護...@@                                   10/02 01:12
+→ Fantasywind:不過就原文來說可以改成short tag會更簡潔             10/02 01:13
+推 sdcomputer:我自己是都用ajax來生成..這樣就可以很乾淨了           10/02 05:01
+→ tyh11:雖避免不了,但寫成物件或函式來用可以比較好管理。           10/02 08:48
+推 kencool107:迴圈或if應該勢必免不了的吧                           10/02 10:42
+→ MOONRAKER:CI的tmpl也是選用而已，我們都像文中這樣寫，不用tmpl。  10/02 11:20
+
+既然避免不了的話,我知道了~謝謝各位阿!
+※ 編輯: PTTLSboy        來自: 220.128.117.43       (10/02 13:20)
+推 s861175:抽出來寫就好啦 文大推廣部有個php老師教的                10/03 00:23
+→ olctw:可以試試 angularjs or knockout ， js + json 會更乾淨些    10/05 09:43
+
+
+
+ 作者  tkdmaf (皮皮快跑)                                            看板  PHP
+ 標題  Re: [請益]該如何避免HTML摻雜PHP寫法
+ 時間  Tue Oct  2 00:27:44 2012
+───────────────────────────────────────
+
+※ 引述《PTTLSboy (阿銫)》之銘言：
+: <select>
+:         <? for($i=0;$i<$a;$i++){ ?>
+:                 <option> (略) </option>
+:         <? } ?>
+: </select>
+: 要如何避免以上這種 HTML+PHP 混在一起的寫法呢???
+: 因為有不得不用PHP跑迴圈+HTML或JAVASCRIPT的需求
+: 感謝!!
+<?php for($i = 0 ; $i < $a ; $i++):?>
+        <option>(略)</option>
+<?php endfor?>
+和html必須一起輸出時最好是這樣寫。
+用{ }常常會有可能搞不清楚是誰的括號
+
+--
+※ 發信站: 批踢踢實業坊(ptt.cc)
+◆ From: 112.105.91.204
+推 bency:請問這種寫法要用什麼關鍵字查詢用法阿？ if 也能用 endif？  10/02 00:30
+推 LaPass:PHP MANUAL                                               10/02 01:04
+→ LaPass:http://www.php.net/manual/zh/index.php 關於PHP的問題，   10/02 01:06
+→ LaPass:裡面全部都有                                             10/02 01:06
+→ superpai:人家有名字的 Alternative syntax for control structure  10/02 08:05
+→ MOONRAKER:for/endfor while/endwhile if/endif switch/endswitch   10/02 11:20
+→ MOONRAKER:注意switch有一點syntax bug php手冊底下user留言有講    10/02 11:21
+→ MOONRAKER:不然就避免用switch                                    10/02 11:22
+推 PTTLSboy:原來還可以這樣寫阿!                                    10/02 13:25
+推 liaosankai:MOONRAKER指的bug應該是這個http://goo.gl/737tq        10/03 19:24
+→ MOONRAKER:他是2008年submit的，我2009年碰到，前天寫還有 :(       10/03 22:56
+
+
+
+ 作者  tanson (Flash)                                               看板  PHP
+ 標題  Re: [請益]該如何避免HTML摻雜PHP寫法
+ 時間  Fri Oct  5 00:31:02 2012
+───────────────────────────────────────
+
+※ 引述《PTTLSboy (阿銫)》之銘言：
+: <select>
+:         <? for($i=0;$i<$a;$i++){ ?>
+:                 <option> (略) </option>
+:         <? } ?>
+: </select>
+: 要如何避免以上這種 HTML+PHP 混在一起的寫法呢???
+: 因為有不得不用PHP跑迴圈+HTML或JAVASCRIPT的需求
+: 感謝!!
+
+
+寫成物件導向的方式如何，例如：
+
+class InputGenerator
+{
+    static public function select($name, $value, $attr, $options)
+    {
+        $html = '<select name="' . $name . '">';
+
+        foreach($options as $key => $option) {
+
+            $selected = '';
+            if ($value == $key) {
+                $selected = 'selected';
+            }
+
+            $html .= '<option value="' . $key . '" ' . $selected  . '>';
+            $html .= $option;
+            $html .= '</option>';
+        }
+
+        $html .= '</select>';
+
+        return $html;
+    }
+}
+
+暫且略過$attr html屬性設定的參數
+
+使用時只要 require class至頁面，然後如以下方式
+InputGenerator::select('name', '1', null, $enums);
+便可產生所需的下拉選單
+
+不然就是使用framework
+像是Zend Framework 的view helper
+
+讓頁面也乾淨許多
+且就不必常使用for迴圈產生元素
+
+--
+※ 發信站: 批踢踢實業坊(ptt.cc)
+◆ From: 220.135.45.92
+→ MOONRAKER:這明顯是完全不跟人配合，自己一個人做網站的寫法。我才  10/05 01:00
+→ MOONRAKER:不要在php內產生HTML...                                10/05 01:00
+→ tanson:我想，就是因為是teamwork才更需要使用物件導向             10/05 01:16
+→ tanson:當teamwork時，如果可以將code縮減，並讓人清楚的知道每個   10/05 01:18
+→ tanson:物件的職責，不僅可以縮短project開發時間，日後也更好維護  10/05 01:19
+→ tanson:M大不喜歡由php產生html的目的為何，願聞其詳               10/05 01:21
+→ tanson:不要忘了ZF的view helper也是類似做法                      10/05 01:23
+→ tkdmaf:這叫濫用物件好嗎？物件不是拿來這樣搞的。                 10/05 07:46
+→ tkdmaf:如果你的SAMPLE CODE的內容是另外讀取HTML頁面的話。        10/05 07:47
+→ tkdmaf:我認為那才會是正解。                                     10/05 07:47
+推 B9: 這不算濫用物件啊，就只是個 static method                    10/05 08:05
+→ B9: 跟設計一個 input_generator_select 是一樣的東西              10/05 08:05
+→ B9:                            static function                  10/05 08:06
+噓 tkdmaf:我才不管他方法，而是他製造出一種困擾。                   10/05 08:06
+→ tkdmaf:事實上我連ci的input相關功能都很少用。                    10/05 08:08
+→ tkdmaf:在基於和網頁設計師的配合上                               10/05 08:08
+→ tkdmaf:讓他們看得懂HTML而不是製造看不同的功能比較重要。         10/05 08:09
+推 B9: 所以你每次寫 html 都這樣嗎？ http://pastebay.net/1149249    10/05 08:24
+噓 tkdmaf:類似！但我不能先做好htmlentities再放進陣列？             10/05 08:26
+→ tkdmaf:還有剛剛洗澡我才想到，form相關的ci是寫成函式。           10/05 08:27
+→ tkdmaf:而不是物件。                                             10/05 08:27
+→ tkdmaf:乾乾淨淨的純html顯示是工程師能帶給網編人員的方便。       10/05 08:28
+→ tkdmaf:而不是給他們感到困惑。                                   10/05 08:29
+→ tkdmaf:除了必要重覆的php code，我絕少在view中做其他處置。       10/05 08:29
+→ mervynW:我看到這種code我會叫過來念一頓. 要抓html&css問題還要    10/05 09:49
+→ mervynW:到php code裡找,當大家太閒啊.                            10/05 09:50
+→ tkdmaf:                ^^^^^^^^^^^^XD！                         10/05 10:01
+→ Gakun:其實我覺得困擾還好 只是在於整個團隊有沒有明確的文件規範   10/05 10:04
+→ tkdmaf:但如果都是標準HTML顯示……不用文件規範吧。               10/05 10:11
+→ tkdmaf:難不成他的HTML和我的HTML規則不一樣？                     10/05 10:11
+→ MOONRAKER:這種規範就是允許frontend來改我程式，我一定反彈。      10/05 11:17
+→ tkdmaf:如果你的code是讓我無所適從，我會讓你看看砍掉重練的驕傲   10/05 12:02
+→ mervynW:我跟frontend討論過, 他們不愛temp的迴圈                  10/05 12:08
+→ tkdmaf:不愛的話就把迴圈放回controller或是model來處理。          10/05 12:24
+→ tkdmaf:變成只剩下變數顯示的純view了。                           10/05 12:24
+→ tanson:這樣的話跟我的InputGenerator物件差別在哪= =?             10/05 12:38
+→ mervynW:不,傳json給forntend, 他們用js組                         10/05 13:04
+→ tkdmaf:嗯！用js組的好處就是迴圈不吃伺服器資源吧！               10/05 13:31
+推 mervynW:還有User看到畫面快,雖然沒有內容                         10/05 14:04
+
+
+
+ 作者  tkdmaf (皮皮快跑)                                            看板  PHP
+ 標題  Re: [請益]該如何避免HTML摻雜PHP寫法
+ 時間  Fri Oct  5 08:05:49 2012
+───────────────────────────────────────
+
+※ 引述《tanson (Flash)》之銘言：
+: 寫成物件導向的方式如何，例如：
+: class InputGenerator
+: {
+:     static public function select($name, $value, $attr, $options)
+:     {
+:         $html = '<select name="' . $name . '">';
+:         foreach($options as $key => $option) {
+:             $selected = '';
+:             if ($value == $key) {
+:                 $selected = 'selected';
+:             }
+:             $html .= '<option value="' . $key . '" ' . $selected  . '>';
+:             $html .= $option;
+:             $html .= '</option>';
+:         }
+:         $html .= '</select>';
+:         return $html;
+:     }
+: }
+: 暫且略過$attr html屬性設定的參數
+: 使用時只要 require class至頁面，然後如以下方式
+: InputGenerator::select('name', '1', null, $enums);
+: 便可產生所需的下拉選單
+: 不然就是使用framework
+: 像是Zend Framework 的view helper
+: 讓頁面也乾淨許多
+: 且就不必常使用for迴圈產生元素
+你這個做法基本上只會造成其他寫程式的人的困擾。
+同時也帶給美編或是網頁人員設計上的困擾。
+這次的主題來說最大的問題是在於所謂的「程式」和「頁面」分離的問題。
+在我的觀念裡，控制行為、資料庫行為……等等的東西的確應該要和頁面分離。
+但所謂的程式並不是指你用上了「<?php」他就會是程式。
+以本例必要的重覆html行為，事實上他表明了這是一個做為「連續顯示」的行為。
+這種情形之下所必要使用的for、foreach、while……等等迴圈行為，
+他仍然只能算是「頁面」的一部份。
+因為他並不是在控制整個程式走向。
+而僅僅就為了「輸出」這件事。
+要不然真的要講到完全程式和HTML分離
+<td><?php echo $row['name']></td>
+這東西豈不就完全違規了？
+適當的view中放置符合於頁面顯示的php code，不僅僅對程式開發人員降低負擔。
+網頁編輯人員也可以自由的去設計畫面。
+而不管是網頁人員寫好版面給程式設計師。
+或是程式設計師先設計醜醜的表單再丟給網頁設計人員去改。
+都不會有什麼太大的問題。
+但你包成class來做的話......
+到底是在給誰難過？
+給我嗎？不會。因為我會把他整個砍掉。
+framework一般的立意就在於MVC架構分離。
+但是V就叫做VIEW，不叫做「HTML」。
+VIEW不代表他完全不包含任何PHP語法。
+VIEW只是告訴你不要拿來寫程式流程，不要用來取資料庫，不要用來做和「畫面顯示」
+無關的行為。
+http://www.codeigniter.org.tw/user_guide/general/alternative_php.html
+
+連codeigniter都有提到關於變換句法的問題。
+可以合理的理解他們將這幾個php語法視為view的一部份的合理性。
+不過ci的short tag處理法倒是蠻有趣的。(完全無視伺服器的設定)
+(說穿了他不過就是把<?=$name?>在執行前換回<?php echo $name?>罷了)
+
+--
+※ 發信站: 批踢踢實業坊(ptt.cc)
+◆ From: 112.105.91.204
+推 chingfeng18:支持MCV架構,雖然俺目前的架構是MC V                  10/05 10:17
+→ MOONRAKER:MC V 是不是MC混在一起的意思 |D                        10/05 11:18
+→ chingfeng18:恩~~! 俺才剛學3個月!M的部份比較不懂 所以會在流程    10/05 13:15
+→ chingfeng18:+上資料庫處理 囧RZ                                  10/05 13:16
+
+
+
+ 作者  tanson (Flash)                                               看板  PHP
+ 標題  Re: [請益]該如何避免HTML摻雜PHP寫法
+ 時間  Fri Oct  5 12:50:59 2012
+───────────────────────────────────────
+
+※ 引述《tkdmaf (皮皮快跑)》之銘言：
+: ※ 引述《tanson (Flash)》之銘言：
+: : 寫成物件導向的方式如何，例如：
+: : class InputGenerator
+: : {
+: :     static public function select($name, $value, $attr, $options)
+: :     {
+: :         $html = '<select name="' . $name . '">';
+: :         foreach($options as $key => $option) {
+: :             $selected = '';
+: :             if ($value == $key) {
+: :                 $selected = 'selected';
+: :             }
+: :             $html .= '<option value="' . $key . '" ' . $selected  . '>';
+: :             $html .= $option;
+: :             $html .= '</option>';
+: :         }
+: :         $html .= '</select>';
+: :         return $html;
+: :     }
+: : }
+: : 暫且略過$attr html屬性設定的參數
+: : 使用時只要 require class至頁面，然後如以下方式
+: : InputGenerator::select('name', '1', null, $enums);
+: : 便可產生所需的下拉選單
+: : 不然就是使用framework
+: : 像是Zend Framework 的view helper
+: : 讓頁面也乾淨許多
+: : 且就不必常使用for迴圈產生元素
+: 你這個做法基本上只會造成其他寫程式的人的困擾。
+: 同時也帶給美編或是網頁人員設計上的困擾。
+: 這次的主題來說最大的問題是在於所謂的「程式」和「頁面」分離的問題。
+: 在我的觀念裡，控制行為、資料庫行為……等等的東西的確應該要和頁面分離。
+: 但所謂的程式並不是指你用上了「<?php」他就會是程式。
+: 以本例必要的重覆html行為，事實上他表明了這是一個做為「連續顯示」的行為。
+: 這種情形之下所必要使用的for、foreach、while……等等迴圈行為，
+: 他仍然只能算是「頁面」的一部份。
+: 因為他並不是在控制整個程式走向。
+: 而僅僅就為了「輸出」這件事。
+: 要不然真的要講到完全程式和HTML分離
+: <td><?php echo $row['name']></td>
+: 這東西豈不就完全違規了？
+: 適當的view中放置符合於頁面顯示的php code，不僅僅對程式開發人員降低負擔。
+: 網頁編輯人員也可以自由的去設計畫面。
+: 而不管是網頁人員寫好版面給程式設計師。
+: 或是程式設計師先設計醜醜的表單再丟給網頁設計人員去改。
+: 都不會有什麼太大的問題。
+: 但你包成class來做的話......
+: 到底是在給誰難過？
+: 給我嗎？不會。因為我會把他整個砍掉。
+: framework一般的立意就在於MVC架構分離。
+: 但是V就叫做VIEW，不叫做「HTML」。
+: VIEW不代表他完全不包含任何PHP語法。
+: VIEW只是告訴你不要拿來寫程式流程，不要用來取資料庫，不要用來做和「畫面顯示」
+: 無關的行為。
+: http://www.codeigniter.org.tw/user_guide/general/alternative_php.html
+: 連codeigniter都有提到關於變換句法的問題。
+: 可以合理的理解他們將這幾個php語法視為view的一部份的合理性。
+: 不過ci的short tag處理法倒是蠻有趣的。(完全無視伺服器的設定)
+: (說穿了他不過就是把<?=$name?>在執行前換回<?php echo $name?>罷了)
+
+撇除個人開發
+
+一個團隊在開發新的專案，開發時程是最重要的項目之一
+
+使用物件產生下拉選單等input欄位，可以節省的是甚麼？
+
+節省重複的code撰寫，也就是節省了開發時間
+
+把時間省下多去想流程規劃、物件的設計不是更重要？
+
+再來，如果一個網頁設計師在維護view的時候，
+
+可以看得懂for迴圈產生的select，那為何Class產生出來的select會看不懂
+
+你只要告訴他InputGeneroator::Select() 代表的是下拉選單，和難之有？
+
+且copy一堆php產生的code容易，還是一行code容易且不容易出錯？
+
+
+更何況現今framework，以ZF為例，使用物件產生出的Input元素
+
+更是百百種，難道您也要說ZF真是罪大惡極？
+
+這樣的產生方式會給人難過嗎？我想答案是不會的
+
+--
+※ 發信站: 批踢踢實業坊(ptt.cc)
+◆ From: 210.242.161.16
+→ tkdmaf:節省開發是節省在HTML上真的怪怪的。                       10/05 13:18
+→ tkdmaf:至於code會不會出錯看你有沒有做好單元測試了。             10/05 13:18
+→ tkdmaf:至於ZF的罪大惡極點……我想就是smarty吧！                 10/05 13:19
+→ tkdmaf:快速的軟體開發不是叫你去節省VIEW方面的東西OK？           10/05 13:19
+→ tkdmaf:說真的，如果我程式寫好了，HTML的CODE的變動就給網頁人員   10/05 13:20
+→ tkdmaf:去做。根本沒有什麼開發速度的問題。                       10/05 13:20
+→ tkdmaf:順便告訴你，很多人在用的東西有時只是你不能改變他核心。   10/05 13:21
+→ tkdmaf:不代表他的思維一定是符合你的需求。                       10/05 13:21
+→ tkdmaf:你要一直提ZF為例，我也可以一直提CI為例。                 10/05 13:22
+→ tkdmaf:你說ZF是用InputGenetoatior::Select()為例的話             10/05 13:22
+→ tkdmaf:那CI就很簡單的是：我根本就懶的提供。                     10/05 13:24
+→ tkdmaf:CI最多就給你個set_select()就算客氣的了。                 10/05 13:24
+→ tkdmaf:其他像有form_input()、form_textarea()....等等            10/05 13:25
+推 LaPass:簡單來講.... 思維不同.... M$ 的一個asp框架我記得也是提   10/05 13:27
+→ LaPass:供InputGenetoatior::Select()之類的東西去寫。在寫網頁的   10/05 13:28
+→ LaPass:過程中，根本不會寫到HTML、CSS                            10/05 13:28
+→ tkdmaf:可那就變成寫死的東西了。要改的話真的很~~~~~~~~~~         10/05 13:30
+→ LaPass:GOOGLE也推出個GWT，可以在SEVER端完全用JAVA去寫，而不用   10/05 13:30
+→ LaPass:寫javascript，變成直接用java寫JAVA之類的功能             10/05 13:31
+→ LaPass:還是要看使用者啦.....                                    10/05 13:31
+→ LaPass:                              ajax  才對 打錯 = =        10/05 13:33
+→ tkdmaf:我是覺得說，開發這件事真的不是自己爽就好的。             10/05 13:33
+→ tkdmaf:如果開發網頁，我還得去「教育」網頁人員~~~~~~             10/05 13:34
+→ tkdmaf:或是我得把我的功能告訴他們怎麼用怎麼放。                 10/05 13:34
+→ tkdmaf:甚至要很緊張的告訴他們：那個千萬別動。                   10/05 13:34
+→ tkdmaf:對自己有什麼好處？                                       10/05 13:34
+→ tkdmaf:我常常都跟我公司的網頁人員說一句話：                     10/05 13:35
+→ tkdmaf:我做的東西你就儘量改，改壞了也沒差，反正我主程式不會有   10/05 13:35
+→ tkdmaf:問題。                                                   10/05 13:35
+→ tkdmaf:因為我讓他們就是使用基本技術規範的東西就好了。           10/05 13:35
+→ tkdmaf:其他程式面的問題我自然有其他的處理辦法。                 10/05 13:36
+推 LaPass:嗯~ 思維不同~                                            10/05 13:39
+→ tkdmaf:是的。思維不同~                                          10/05 13:48
+推 shadowjohn:同意tkdmaf說的，我也是不怕美工改~主程式不會有問題    10/05 21:24
+
+
+
+ 作者  mervynW (.)                                                  看板  PHP
+ 標題  Re: [請益]該如何避免HTML摻雜PHP寫法
+ 時間  Fri Oct  5 14:03:52 2012
+───────────────────────────────────────
+
+※ 引述《tanson (Flash)》之銘言：
+: 一個團隊在開發新的專案，開發時程是最重要的項目之一
+: 使用物件產生下拉選單等input欄位，可以節省的是甚麼？
+: 節省重複的code撰寫，也就是節省了開發時間
+: 把時間省下多去想流程規劃、物件的設計不是更重要？
+: 再來，如果一個網頁設計師在維護view的時候，
+: 可以看得懂for迴圈產生的select，那為何Class產生出來的select會看不懂
+: 你只要告訴他InputGeneroator::Select() 代表的是下拉選單，和難之有？
+: 且copy一堆php產生的code容易，還是一行code容易且不容易出錯？
+: 更何況現今framework，以ZF為例，使用物件產生出的Input元素
+: 更是百百種，難道您也要說ZF真是罪大惡極？
+: 這樣的產生方式會給人難過嗎？我想答案是不會的
+
+先回到一般 AP 開發對UI也是有2種開發模式。
+1. 也是用code組layout.
+2. 用 UI開發工具做出 interface, 在套上程式.
+有沒有跟web很像??
+用那種方式開發，其實應該取決於你的目的，這點其實我們都沒提到
+
+1的作法可不可以做出一個很美的外觀？
+  當然可以，但要花多久？？？
+2要作一個內部用的工具不在意外觀，行不行？
+  當然可以，多一個人力，多一份討論。
+
+作一個內部網站 or 接案的人，對他們來說快就好用越少人力越好
+當然不會選第2種方式
+一個作content site，三不五時要改外觀，叫他用1那種開發方式
+整個team會跳槽給你看。
+
+framework 有作一些 html helper 大都給第1種開發方式用比較好
+不然你在寫 javascript 看到你要處理的原素長得這樣
+
+<?php $this->widget('zii.widgets.CMenu',array(
+'htmlOptions' => array('class'=>'nav nav-pills my_menu'),
+'itemCssClass' => 'cmenu-li-w',
+'items' => array(
+array('label'=>'1', 'url'=>array('/') , 'active'=> (Yii::app()->controller->id\
+=='' && 'val'!=$this->action->id)),
+array('label'=>'2', 'url'=>array('/') , 'active' => (Yii::app()->controller->i\
+d=='' && 'val'==$this->action->id)),
+array('label'=>'3', 'url'=>array('/'), 'active' => Yii::app()->controller->id=\
+=''),
+array('label'=>'4', 'url'=>array('/'), 'active' => Yii::app()->controller->id=\
+=''),
+array('label'=>'5', 'url'=>array('/'), 'active' => Yii::app()->controller->id=\
+=''),
+array('label'=>'6', 'url'=>array('/') , 'visible' => MyYii::isAdmin(), 'active\
+' => Yii::app()->controller->id=='')
+),
+)); ?>
+
+會作何感想... ...
+兩種開發方式都是對，不同看法有不同想法罷了.
+
+
+
+
+
+
+
+
+
+--
+※ 發信站: 批踢踢實業坊(ptt.cc)
+◆ From: 1.34.40.217
+推 LaPass:推這篇，妳把兩種思維的作法、抉擇、優缺都講出來了         10/05 14:07
+推 tkdmaf:該怎麼說？我理解tanson的思維。                           10/05 14:10
+→ tkdmaf:但過去的使用經驗告訴我：常常被抓去要教他們怎麼用。       10/05 14:11
+→ tkdmaf:搞得我都跟琛哥一樣不知道是要打他還是打他媽了。           10/05 14:12
+→ tkdmaf:但很肯定不管我想打誰，我一定會被他們圍毆！               10/05 14:13
+→ tkdmaf:正因為死過一次，所以不想再死第二次。                     10/05 14:13
+→ mervynW:想信我, 上面那段code是我現在工作用的用的, 你懂我的感受  10/05 14:17
+→ mervynW:我是作 content site 的啊... 大叫.                       10/05 14:18
+推 LaPass:如果是分工比較細的話，的確比較適合第二種方式             10/05 16:32
+
+
+
+
